@@ -7,7 +7,7 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFromAPI("search?part=snippet&type=video&q=Fulbo&maxResults=50")
+    fetchFromAPI("search?part=snippet&type=video&q=Hololive&maxResults=50")
       .then((data) => {
         if (data?.items) setVideos(data.items);
         setLoading(false);
@@ -18,7 +18,8 @@ export default function Feed() {
       });
   }, []);
 
-  if (loading) return <p className="text-white text-center text-5xl">Cargando . . .</p>;
+  if (loading)
+    return <p className="text-white text-center text-5xl">Cargando . . .</p>;
 
   return (
     <div className="flex flex-wrap gap-4 p-4">

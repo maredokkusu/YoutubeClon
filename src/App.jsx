@@ -5,23 +5,19 @@ import SideBar from "./components/SideBar";
 import Feed from "./components/Feed";
 import SearchResults from "./components/SearchResults";
 function App() {
-
-
   return (
     <>
       <BrowserRouter>
-          <NavBar />
-        <div className="flex-1 p-2">
+        <NavBar />
+        <div className="sticky flex min-h-screen bg-zinc-900 text-white">
           <SideBar />
-
-          </div>
-        <Routes>
-          <Route path="/" element={<Feed/>}></Route>
-          <Route
-            path="/results"
-            element={<SearchResults/>}
-            ></Route>
-        </Routes>
+          <main className="flex-1 p-4 overflow-y-auto">
+            <Routes>
+              <Route path="/" element={<Feed />}></Route>
+              <Route path="/results" element={<SearchResults />}></Route>
+            </Routes>
+          </main>
+        </div>
       </BrowserRouter>
     </>
   );
