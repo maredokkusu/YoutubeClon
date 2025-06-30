@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Feed from "./components/Feed";
 import SearchResults from "./components/SearchResults";
+import Watch from "./components/Watch"
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Feed />}></Route>
               <Route path="/results" element={<SearchResults />}></Route>
+              <Route path="/watch" element={<Watch />}></Route>
             </Routes>
           </main>
         </div>

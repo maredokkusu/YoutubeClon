@@ -27,7 +27,6 @@ export default function NavBar() {
           className="self-center flex-grow px-4 py-1.5 rounded-l-full bg-zinc-800 text-white focus:outline-none border-1 border-gray-500"
           value={query}
           onChange={(e) => {
-            e.preventDefault();
             setQuery(e.target.value);
           }}
         />
