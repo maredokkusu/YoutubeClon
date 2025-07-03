@@ -2,12 +2,14 @@ import SearchVideoCard from "./SearchVideoCard";
 import { fetchFromAPI } from "./api/youtube";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useVideoStore } from "./store/useVideoStore";
 export default function SearchResults() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const [videos, setVideos] = useState([]);
   const SearchParams = new URLSearchParams(location.search);
   const query = SearchParams.get("search_query");
+  const setVideoList = useVideoStore((state) => state.setVideoList);
   useEffect(() => {
     if (!query) return;
     setLoading(true);
@@ -33,6 +35,7 @@ export default function SearchResults() {
           const channelInfo = ChannelData.items.find(
             (ch) => ch.id === video.snippet.channelId
           );
+
           return {
             ...video,
             viewCount: videoStats?.statistics?.viewCount || 0,
@@ -42,13 +45,14 @@ export default function SearchResults() {
           };
         });
         setVideos(merge);
+        setVideoList(merge);
         setLoading(false);
       })
       .catch((e) => {
         console.error("Fetching Error");
       });
   }, [query]);
-  if (loading) return <p className="text-gray-400">Cargando...</p>;
+  if (loading) return <p className=" text-gray-400">Cargando...</p>;
 
   return (
     <div className="flex flex-col gap-4 p-4">

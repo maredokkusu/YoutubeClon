@@ -8,7 +8,7 @@ export default function Feed() {
 
   useEffect(() => {
     fetchFromAPI("search?part=snippet&type=video&q=Hololive&maxResults=50")
-      .then((data) => {
+      .then(async(data) => {
         if (data?.items) setVideos(data.items);
         setLoading(false);
       })

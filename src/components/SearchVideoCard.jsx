@@ -1,11 +1,11 @@
+
 import { useNavigate } from "react-router-dom";
-import { useVideostore } from "./Watch";
+import { useVideoStore } from "./store/useVideoStore";
 export default function SearchVideoCard({ video }) {
   const { snippet, viewCount, channelThumbnail } = video;
-  const setVideo = useVideostore((state) => state.setVideo);
+  const setVideo = useVideoStore((state) => state.setVideo);
   const navigate = useNavigate()
-  const handleClick = (e) => {
-    e.preventDefault()
+  const handleClick = () => {
     setVideo(video);
     navigate(`/watch?v=${video.id.videoId}`);
   };
