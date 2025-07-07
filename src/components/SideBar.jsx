@@ -12,8 +12,8 @@ export default function SideBar() {
     { name: "Historial", icon: <Clock size={25} />, path: "history" },
   ];
   return (
-    <aside className="w-20 bg-zinc-900 p-4 min-h-screen text-white">
-      <nav className="flex flex-col gap-4">
+    <aside className="border-r border-gray-600 w-20 bg-zinc-900 p-4 min-h-screen text-white">
+      <nav className="sticky flex flex-col gap-5">
         {categories.map((item) => (
           <Link
             key={item.name}

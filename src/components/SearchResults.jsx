@@ -49,13 +49,13 @@ export default function SearchResults() {
         setLoading(false);
       })
       .catch((e) => {
-        console.error("Fetching Error");
+        console.error("Fetching Error",e);
       });
   }, [query]);
-  if (loading) return <p className=" text-gray-400">Cargando...</p>;
+  if (loading) return <p className="text-center text-gray-400">Cargando...</p>;
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="ml-10 flex flex-col gap-4 p-4">
       {videos.map((video) => (
         <SearchVideoCard key={video.id.videoId} video={video} />
       ))}
