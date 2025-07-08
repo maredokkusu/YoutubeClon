@@ -10,9 +10,9 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar />
-        <div className="sticky flex min-h-screen bg-zinc-900 text-white">
+        <div className="flex min-h-screen bg-zinc-900 text-white">
           <SideBar />
-          <main className="flex-1 p-4 overflow-y-auto">
+          <main className="flex-1 p-4 overflow-y-auto h-screen">
             <Routes>
               <Route path="/" element={<Feed />}></Route>
               <Route path="/results" element={<SearchResults />}></Route>

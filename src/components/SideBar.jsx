@@ -12,19 +12,19 @@ export default function SideBar() {
     { name: "Historial", icon: <Clock size={25} />, path: "history" },
   ];
   return (
-    <aside className="border-r border-gray-600 w-20 bg-zinc-900 p-4 min-h-screen text-white">
-      <nav className="sticky flex flex-col gap-5">
-        {categories.map((item) => (
-          <Link
-            key={item.name}
-            to={item.path}
-            className="flex flex-col items-center gap-1 p-2 rounded hover:bg-zinc-800 transition"
-          >
-            {item.icon}
-            <span className="text-xs">{item.name}</span>
-          </Link>
-        ))}
-      </nav>
-    </aside>
+  <aside className="sticky top-0 h-screen w-20 bg-zinc-900 p-4 text-white border-r border-gray-600">
+  <nav className="flex flex-col items-center justify-center gap-5 h-11/12">
+    {categories.map((item) => (
+      <Link
+        key={item.name}
+        to={item.path}
+        className="flex flex-col items-center gap-1 p-2 rounded hover:bg-zinc-800 transition"
+      >
+        {item.icon}
+        <span className="text-xs text-center">{item.name}</span>
+      </Link>
+    ))}
+  </nav>
+</aside>
   );
 }

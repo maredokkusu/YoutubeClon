@@ -28,10 +28,9 @@ export default function RelatedVideos() {
   if (!video || !video.snippet) {
     return;
   }
-  console.log(videoId);
 
   return (
-    <div className="">
+    <div className="w-full overflow-hidden">
       {relatedvideos.map((video) => (
         <RelatedVideoCard video={video} key={video.id.videoId} />
       ))}
