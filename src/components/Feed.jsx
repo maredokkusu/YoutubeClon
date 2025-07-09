@@ -9,7 +9,7 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFromAPI("search?part=snippet&type=video&q=Hololive&maxResults=50")
+    fetchFromAPI("search?part=snippet&type=video&q=Programming&maxResults=50&videoDuration=medium")
       .then(async (data) => {
         if (!data?.items || data.items.length === 0) {
           setVideos([]);
@@ -48,7 +48,7 @@ export default function Feed() {
   }, []);
 
   if (loading)
-    return <p className="text-white text-center text-9xl">Cargando . . .</p>;
+    return <p className="text-gray-600 text-center text-3xl">Cargando . . .</p>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
