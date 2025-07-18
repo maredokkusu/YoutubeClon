@@ -30,7 +30,7 @@ export default function RelatedVideos() {
   }
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-11/12 overflow-hidden">
       {relatedvideos.map((video) => (
         <RelatedVideoCard video={video} key={video.id.videoId} />
       ))}

@@ -13,7 +13,7 @@ export default function SearchResults() {
   useEffect(() => {
     if (!query) return;
     setLoading(true);
-    fetchFromAPI(`search?part=snippet&type=video&q=${query}&maxResults=50`)
+    fetchFromAPI(`search?part=snippet&type=video&q=${query}&maxResults=50&videoDuration=medium`)
       .then(async (data) => {
         if (!data?.items || data.items.length === 0) {
           setVideos([]);
@@ -38,7 +38,7 @@ export default function SearchResults() {
 
           return {
             ...video,
-            viewCount: videoStats?.statistics?.viewCount || 0,
+            statistics: videoStats?.statistics || 0,
             channelThumbnail:
               channelInfo?.snippet?.thumbnails?.default?.url || "",
             channelSuscribers: channelInfo?.statistics?.subscriberCount || 0,
@@ -55,7 +55,7 @@ export default function SearchResults() {
   if (loading) return <p className="text-center text-gray-400">Cargando...</p>;
 
   return (
-    <div className="ml-10 flex flex-col gap-4 p-4">
+    <div className="grid  gap-6 p-4">
       {videos.map((video) => (
         <SearchVideoCard key={video.id.videoId} video={video} />
       ))}

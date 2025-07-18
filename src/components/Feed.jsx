@@ -9,7 +9,9 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFromAPI("search?part=snippet&type=video&q=Programming&maxResults=50&videoDuration=medium")
+    fetchFromAPI(
+      "search?part=snippet&type=video&q=Programming&maxResults=50&videoDuration=medium"
+    )
       .then(async (data) => {
         if (!data?.items || data.items.length === 0) {
           setVideos([]);
@@ -35,7 +37,9 @@ export default function Feed() {
           return {
             ...video,
             viewCount: videoStats?.statistics?.viewCount,
+            likeCount: videoStats?.statistics?.likeCount,
             channelThumbnail: ChannelInfo?.snippet?.thumbnails?.default?.url,
+            channelSubscribers: ChannelInfo?.statistics?.subscriberCount || 0,
           };
         });
         setVideos(merge);
@@ -51,10 +55,10 @@ export default function Feed() {
     return <p className="text-gray-600 text-center text-3xl">Cargando . . .</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 w-full">
       {videos.map((video, index) => {
         const key = video?.id.videoId || video?.id || index;
-      return  <VideoCard key={key} video={video} />;
+        return <VideoCard key={key} video={video} />;
       })}
     </div>
   );
