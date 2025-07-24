@@ -14,17 +14,17 @@ export default function NavBar() {
   };
   return (
     <header
-      className=" flex-1/2 flex items-center justify-between px-10 py-4 bg-zinc-900 text-white 
+      className=" flex-1/2 flex items-center justify-between min-sm:px-2 py-4 p-2 bg-zinc-900 text-white 
     shadow-md sticky top-0 z-500"
     >
       <Link to="/" className="flex items-center gap-2 text-xl font-bold">
-        <img src={Logo} alt="Logo" className="w-39 h-8  contain-content " />
+        <img src={Logo} alt="Logo" className="w-25 h-15 min-sm:flex min-sm:w-28 min-sm:h-15  contain-content " />
       </Link>
-      <form onSubmit={handleSearch} className="flex flex-1 mx-4 max-w-xl">
+      <form onSubmit={handleSearch} className=" flex flex-1 self-center   mx-4 max-w-xl">
         <input
           type="text"
           placeholder="Buscar"
-          className="self-center flex-grow px-4 py-1.5 rounded-l-full bg-zinc-800 text-white focus:outline-none border-1 border-gray-500"
+          className="self-center w-10 flex-grow px-4 py-1.5 rounded-l-full bg-zinc-800 text-white focus:outline-none border-1 border-gray-500"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -37,7 +37,7 @@ export default function NavBar() {
           <Search size={20} />
         </button>
       </form>
-      <button className="hover:opacity-80 transition ">
+      <button className="hidden min-sm:flex hover:opacity-80 transition  ">
         <User className="w-39 " size={24} />
       </button>
     </header>

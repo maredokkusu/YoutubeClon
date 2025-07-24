@@ -6,10 +6,15 @@ export const useVideoStore = create(
     (set, get) => ({
       video: null,
       videoCache: {},
-      setVideoList: (videos) =>
+      setVideoList: (videos) => {
+        const entries = videos
+          .filter((v) => v?.id?.videoId)
+          .map((v) => [v.id.videoId, v]);
+
         set(() => ({
-          videoCache: Object.fromEntries(videos.map((v) => [v.id.videoId, v])),
-        })),
+          videoCache: Object.fromEntries(entries),
+        }));
+      },
       getVideoById: (id) => get().videoCache[id],
       setVideo: (videoData) => set({ video: videoData }),
       clearVideo: () => set({ video: null }),

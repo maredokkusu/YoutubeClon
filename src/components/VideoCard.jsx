@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
-import { formatViews,formatRelativeDate } from "./Formats";
+import { Link, useNavigate } from "react-router-dom";
+import he from "he"
+import { formatViews, formatRelativeDate } from "./Formats";
 export default function VideoCard({ video }) {
-  
-  const { snippet, viewCount, channelThumbnail,channelSubscribers,likeCount } = video;
+  const navigate = useNavigate();
+  const {
+    snippet,
+    viewCount,
+    channelThumbnail,
+    channelSubscribers,
+    likeCount,
+  } = video;
   return (
     <article className="bg-zinc-900 rounded-lg overflow-hidden shadow-md hover:scale-105 transition-transform">
       <Link to={`/watch?v=${video.id.videoId}`}>
@@ -21,14 +28,20 @@ export default function VideoCard({ video }) {
           />
 
           <h3 className=" line-clamp-2 text-sm font-semibold ">
-            {snippet?.title}
+            {he.decode(snippet?.title)}
           </h3>
         </div>
-        <p className="text-xs not-italic text-zinc-400 hover:text-white ">
+        <p
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/channel/${video.snippet.channelId}`);
+          }}
+          className="text-xs not-italic text-zinc-400 hover:text-white "
+        >
           {snippet?.channelTitle}
         </p>
         <time className="text-xs text-zinc-400">
-          {formatViews(viewCount)}{" "} views {" "}
+          {formatViews(viewCount)}{"  "} views •{"  "}
           {formatRelativeDate(snippet?.publishedAt)}
         </time>
       </section>
