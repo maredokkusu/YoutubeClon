@@ -6,6 +6,7 @@ export default function useFetchVideos({
   mode = "feed",
   title = "",
   videoId = "",
+  id=""
 }) {
   const setVideoList = useVideoStore((state) => state.setVideoList);
   const [videos, setVideos] = useState([]);
@@ -23,6 +24,8 @@ export default function useFetchVideos({
       )}&maxResults=50&videoDuration=medium`;
     } else if (mode === "single") {
       endpoint = `videos?part=snippet,statistics&id=${videoId}`;
+    } else if (mode === "channels") {
+      endpoint = `search?channelId=${id}&part=snippet&type=video&order=date&videoDuration=medium&maxResults=50`;
     }
     const fetchFeed = async () => {
       try {
@@ -53,7 +56,9 @@ export default function useFetchVideos({
 
         const [statsData, channelsData] = await Promise.all([
           fetchFromAPI(`videos?part=statistics&id=${videoIds}`),
-          fetchFromAPI(`channels?part=snippet,statistics&id=${channelIds}`),
+          fetchFromAPI(
+            `channels?part=snippet,brandingSettings,statistics&id=${channelIds}`
+          ),
         ]);
 
         if (!statsData.items || !channelsData.items) {
@@ -84,7 +89,14 @@ export default function useFetchVideos({
               likeCount: videoStats?.statistics?.likeCount,
               channelThumbnail: ChannelInfo?.snippet?.thumbnails?.default?.url,
               channelSubscribers:
-                ChannelInfo?.statistics?.subscriberCount || "Subs not found",
+                ChannelInfo?.statistics?.subscriberCount || 0,
+              channelTitle: ChannelInfo?.snippet?.title,
+              channelDescription: ChannelInfo?.snippet?.description,
+              channelBanner:
+                ChannelInfo?.brandingSettings?.image?.bannerExternalUrl,
+              channelPublishedAt: ChannelInfo?.snippet?.publishedAt,
+              channelVideoCount: ChannelInfo?.statistics?.videoCount,
+              channelCountry: ChannelInfo?.brandingSettings?.channel?.country,
             };
           });
         setVideos(merge);

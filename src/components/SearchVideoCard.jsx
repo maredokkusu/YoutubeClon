@@ -3,12 +3,12 @@ import he from "he";
 import { formatViews, formatRelativeDate } from "./Formats";
 import { useVideoStore } from "./store/useVideoStore";
 export default function SearchVideoCard({ video }) {
-  const { snippet, statistics, channelThumbnail, channelSuscribers } = video;
+  const { snippet, statistics,viewCount, channelThumbnail, channelSuscribers } = video;
   const setVideo = useVideoStore((state) => state.setVideo);
   const navigate = useNavigate();
   const handleClick = () => {
     setVideo(video);
-    navigate(`/watch?v=${video.id.videoId}`, { state: { video } });
+    navigate(`/watch?v=${video.id.videoId}`, { state: { video },});
   };
   return (
     <article className="flex flex-col sm:flex-row gap-4 p-2 rounded-2xl hover:bg-zinc-800 transition">
@@ -23,7 +23,7 @@ export default function SearchVideoCard({ video }) {
           {he.decode(snippet?.title)}
         </h2>
         <time className="text-sm text-zinc-300 block mt-1">
-          {formatViews(statistics?.viewCount)} views •{" "}
+          {formatViews(viewCount)} views •{" "}
           {formatRelativeDate(snippet?.publishedAt)}
         </time>
         <div className="mb-2 mt-2">

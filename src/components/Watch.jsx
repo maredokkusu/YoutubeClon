@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Video from "./Video";
 import { formatViews } from "./Formats";
 import he from "he";
+import { formatRelativeDate } from "./Formats";
 import RelatedVideos from "./RelatedVideos";
 import { useEffect, useState } from "react";
 import useFetchVideos from "./Hooks/useFetchVideos";
@@ -35,9 +36,8 @@ export default function Watch() {
     }
   }, [fetchedVideos]);
   const snippet = video?.snippet;
- 
-      document.title = `${snippet?.title} - YouTube Clon`;
-    
+
+  document.title = `${snippet?.title} - YouTube Clon`;
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 px-4 py-6 w-full max-w-screen-xl mx-auto">
@@ -85,8 +85,12 @@ export default function Watch() {
             </button>
           </section>
         </div>
-
-        <p className="text-gray-400">{video?.viewCount}</p>
+        <section>
+          <p className="text-gray-400">{formatViews(video?.viewCount)} views</p>
+          <p className="text-gray-400">
+            {formatRelativeDate(snippet?.publishedAt)}{" "}
+          </p>
+        </section>
       </main>
       <aside className="w-full lg:w-1/3 max-h-full overflow-hidden bg-zinc-900">
         <RelatedVideos videoId={videoId} />

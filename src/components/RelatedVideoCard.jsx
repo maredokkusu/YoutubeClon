@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import he from "he";
+import { formatRelativeDate } from "./Formats";
+import { formatViews } from "./Formats";
 export default function RelatedVideoCard({ video }) {
   const {
     snippet,
     viewCount,
+    statistics,
     channelThumbnail,
     channelSubscribers,
     likeCount,
   } = video;
+  
   return (
     <Link
       to={`/watch?v=${video?.id?.videoId}`}
@@ -24,6 +28,10 @@ export default function RelatedVideoCard({ video }) {
         </h3>
         <p className="text-xs text-zinc-400 truncate">
           {snippet?.channelTitle}
+          <time className="text-sm text-zinc-300 block mt-1">
+            {formatViews(viewCount)} views •{" "}
+            {formatRelativeDate(snippet?.publishedAt)}
+          </time>
         </p>
       </div>
     </Link>

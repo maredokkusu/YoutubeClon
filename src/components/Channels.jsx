@@ -1,41 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchFromAPI } from "./api/youtube";
 import { formatViews } from "./Formats";
 import VideoCard from "./VideoCard";
+import useFetchVideos from "./Hooks/useFetchVideos";
 export default function Channels() {
   const { id } = useParams();
-  const [videos, setVideos] = useState([]); 
-  const [channel, setChannel] = useState([]);
-  useEffect(() => {
-    const fetchChannelandVideos = async () => {
-      try {
-        const ChannelRes = await fetchFromAPI(
-          `channels?part=snippet,brandingSettings,statistics&id=${id}`
-        );
-        const VideosRes = await fetchFromAPI(
-          `search?channelId=${id}&part=snippet&type=video&order=date&videoDuration=medium&maxResults=50`
-        );
-        const ChannelData = ChannelRes?.items?.[0];
-        
-        const VideoData = VideosRes?.items || [];
-        setChannel(ChannelData || null);
-        setVideos(VideoData || []);
-      } catch (e) {
-        console.error("Fetching get error", e);
-      }
-    };
-    fetchChannelandVideos();
-  }, [id]);
-  if (!channel) return <p className="text-white p-4">Cargando canal...</p>;
+  const { videos } = useFetchVideos({ mode: "channels", id });
+  const channel = videos[0];
+  if (!channel)return <p className="text-white" >Loading . . .</p>
+  const { snippet, statistics, description, brandingSettings } = channel;
+  const bannerUrl = channel?.channelBanner;
+   const avatar = channel?.channelThumbnail;
 
-  const { snippet, brandingSettings, statistics } = channel;
-  const bannerUrl =
-    brandingSettings?.image?.bannerTvImageUrl ||
-    brandingSettings?.image?.bannerImageUrl ||
-    brandingSettings?.image?.bannerExternalUrl;
-  const avatar = snippet?.thumbnails?.high?.url;
- document.title= `${snippet?.title}`
   return (
     <div className="w-full text-white">
       {bannerUrl && (
